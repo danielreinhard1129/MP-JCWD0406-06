@@ -21,18 +21,19 @@ model Sample {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  username       String   @unique
-  password       String
-  email          String
-  poin_balance   Int
-  updatedAt      DateTime @updatedAt
-  createdAt      DateTime @default(now())
-  contact_person Int
-  address        String
-  nama_lengkap   String
-  roleid         Int
-  role           Role     @relation(fields: [roleid], references: [id], onDelete: Cascade)
+  id              Int      @id @default(autoincrement())
+  username        String   @unique
+  password        String
+  email           String
+  poin_balance    Int
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  contact_person  Int
+  address         String
+  nama_lengkap    String
+  refferal_number String
+  roleid          Int
+  role            Role     @relation(fields: [roleid], references: [id], onDelete: Cascade)
 }
 
 model Role {
