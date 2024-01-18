@@ -31,12 +31,12 @@ model User {
   contact_person Int
   address        String
   nama_lengkap   String
-  role           Role[]
+  roleid         Int
+  role           Role     @relation(fields: [roleid], references: [id], onDelete: Cascade)
 }
 
 model Role {
-  id     Int    @id @default(autoincrement())
-  userId Int
-  role   String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id   Int    @id @default(autoincrement())
+  role String
+  user User[]
 }
