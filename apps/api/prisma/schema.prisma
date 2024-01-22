@@ -21,22 +21,75 @@ model Sample {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  username       String   @unique
-  password       String
-  email          String
-  poin_balance   Int
-  updatedAt      DateTime @updatedAt
-  createdAt      DateTime @default(now())
-  contact_person Int
-  address        String
-  nama_lengkap   String
-  roleid         Int
-  role           Role     @relation(fields: [roleid], references: [id], onDelete: Cascade)
+  id              Int           @id @default(autoincrement())
+  fullName        String
+  password        String
+  email           String        @unique
+  contact         String?
+  address         String?
+  referral_number String        @unique
+  updateAt        DateTime      @default(now())
+  createdAt       DateTime      @updatedAt
+  roleId          Int
+  role            Role          @relation(fields: [roleId], references: [id])
+  point_balance   Point[]
+  userReward      UserReward[]
+  userVoucher     UserVoucher[]
 }
 
 model Role {
   id   Int    @id @default(autoincrement())
   role String
   user User[]
+}
+
+model Point {
+  id            Int      @id @default(autoincrement())
+  point_balance Int      @default(0)
+  userId        Int
+  expiresAt     DateTime
+  createAt      DateTime @default(now())
+  updateAt      DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id])
+}
+
+model Reward {
+  id         Int          @id @default(autoincrement())
+  nameReward String
+  persentase Int
+  createAt   DateTime     @default(now())
+  updateAt   DateTime     @updatedAt
+  userReward UserReward[]
+}
+
+model UserReward {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  rewardId  Int
+  expiresAt DateTime
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reward    Reward   @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+}
+
+model UserVoucher {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  voucherId Int
+  isUse     Boolean  @default(false)
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  voucher   Voucher  @relation(fields: [voucherId], references: [id], onDelete: Cascade)
+}
+
+model Voucher {
+  id          Int           @id @default(autoincrement())
+  nameVoucher String
+  persentase  Int
+  expiresAt   DateTime
+  createAt    DateTime      @default(now())
+  updateAt    DateTime      @updatedAt
+  userVoucher UserVoucher[]
 }
