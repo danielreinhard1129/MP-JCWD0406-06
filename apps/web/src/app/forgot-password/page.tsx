@@ -17,11 +17,11 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <main className="container max-w-7xl mx-auto">
+    <main className="container max-w-7xl mx-auto r">
       <NextTopLoader color="#000" showSpinner={false} />
       <div className="flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen">
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-4 text-purple-800">
+          <h2 className="text-2xl font-bold mb-4 text-purple-800 font">
             Forgot Password
           </h2>
           <form onSubmit={handleSubmit}>
