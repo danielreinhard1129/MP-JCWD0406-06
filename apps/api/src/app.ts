@@ -12,6 +12,8 @@ import { PORT } from "./config";
 import { SampleRouter } from "./routers/sample.router";
 import { EventRouter } from "./routers/event.router";
 import { join } from "path";
+import { UserRouter } from "./routers/user.router";
+
 export default class App {
   private app: Express;
 
@@ -55,6 +57,7 @@ export default class App {
   private routes(): void {
     const sampleRouter = new SampleRouter();
     const eventRouter = new EventRouter();
+    const userRouter = new UserRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(`Hello, Purwadhika Student !`);
@@ -64,6 +67,7 @@ export default class App {
 
     // router event handlers
     this.app.use("/api", eventRouter.router);
+    this.app.use("/api/users", userRouter.getRouter());
   }
 
   public start(): void {
