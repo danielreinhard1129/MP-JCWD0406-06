@@ -1,28 +1,47 @@
+"use client";
 
-import { Button, Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from 'flowbite-react';
+import Image from "next/image";
+import Link from "next/link";
+import {
+  HeartIcon,
+  MagnifyingGlassIcon,
+  ShoppingBagIcon,
+  UserIcon,
+} from "@heroicons/react/16/solid";
 
-function Header() {
+export const Header = () => {
   return (
-    <Navbar fluid rounded>
-      <NavbarBrand href="https://flowbite-react.com">
+    <nav className="h-[13vh] bg-gray-800">
+      <div className="w-[95%] md:w-[80%] mx-auto h-[100%] flex items-center justify-between">
+        {/* logo */}
+        <Link href="/">
+          <Image src="/logo.png" alt="logo" width={140} height={140} />
+        </Link>
+        {/* search button */}
+        <div className="h-[50%] hidden flex-[0.7] overflow-hidden bg-gray-200 rounded-md md:flex items-center">
+          <input
+            type="text"
+            placeholder="Search Event (eg. Colll play Conser)"
+            className="block pl-[0.5rem] w-[90%] outline-none mx-auto h-[100%] bg-gray-200"
+          />
 
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite React</span>
-      </NavbarBrand>
-      <div className="flex md:order-2">
-        <NavbarToggle />
+          <MagnifyingGlassIcon className="w-[1.8rem] h-[1.8rem] mr-[1.4rem] cursor-pointer" />
+        </div>
+        {/* keranjang */}
+        <div className="flex items-center justify-center space-x-8">
+          <div className="relative">
+            <ShoppingBagIcon className="w-[2rem] h-[2rem] text-white cursor-pointer" />
+            <div
+              className="w-[20px] text-[12px] absolute top-[-7px] right-[-7px] h-[20px] flex items-center text-white
+             justify-center font-semibold rounded-full bg-red-600"
+            >
+              4
+            </div>
+          </div>
+          <HeartIcon className="w-[2rem] h-[2rem] text-white cursor-pointer" />
+          <UserIcon className="w-[2rem] h-[2rem] text-white cursor-pointer" />
+        </div>
       </div>
-      <NavbarCollapse>
-        <NavbarLink href="#" active>
-          Home
-        </NavbarLink>
-        <NavbarLink href="#">About</NavbarLink>
-        <NavbarLink href="#">Services</NavbarLink>
-        <NavbarLink href="#">Pricing</NavbarLink>
-        <NavbarLink href="#">Contact</NavbarLink>
-      </NavbarCollapse>
-      <Button>Get started</Button>
-    </Navbar>
+    </nav>
   );
-}
-
-export default Header
+};

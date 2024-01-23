@@ -1,9 +1,21 @@
 
-export default function Home() {
-  return (
-    <main >
-      <h1 className="text-black font-extrabold text-[25px]">ini adalah halaman page</h1>
 
-    </main>
-  )
+import React from "react";
+import Homepage from "./home/page";
+
+
+export default function Home() {
+  return <div className="overflow-hidden">
+    <Homepage />
+
+
+
+  </div >
+
+
+
+
+
+
+
 }

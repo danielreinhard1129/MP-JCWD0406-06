@@ -40,3 +40,19 @@ model Role {
   role   String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  creatorName String
+  eventDate   DateTime
+  category    String
+  eventName   String
+  eventTime   String
+  endTime     DateTime
+  city        String
+  price       Float
+  description String
+  image       String?
+}

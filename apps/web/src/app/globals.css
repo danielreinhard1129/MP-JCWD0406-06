@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Oswald:wght@400;700&display=swap');
+
+@layer components {
+  .bg {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 46, 0.6)),
+      url('/images/banner.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .footer_link {
+    @apply text-white text-[15px] opacity-70 mb-[1rem] w-fit cursor-pointer hover:text-yellow-400;
+  }
+}
