@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
-
 import StoreProvider from './StoreProvider';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -23,9 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-          <Header />
+          {/* <Header /> */}
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </StoreProvider>
       </body>
     </html>

@@ -41,14 +41,15 @@ const LoginCard = () => {
 
   return (
     <>
-      <div className="min-h-screen flex justify-center items-center">
-        <div className="container max-w-4xl flex flex-col md:flex-row bg-slate-700 rounded-md">
+      <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 ">
+        <div className="container max-w-4xl flex flex-col md:flex-row bg-slate-700 rounded-md mx-4">
           <div className="w-full md:w-1/2 pl-[10px] flex flex-col justify-center items-center">
             <h1 className="text-zinc-300 font-bold text-2xl mt-5">
-              Hello, Friends!
+              Hello, Friends !
             </h1>
             <p className="text-center pr-2 md:text-center text-yellow-200 text-sm">
-              Enter your personal details and start journey with us
+              Please Enter your personal details
+              <br /> and start journey with us !
             </p>
             <Link href={'/register'}>
               <Button className="mt-[20px]" color="light" pill>
@@ -95,7 +96,11 @@ const LoginCard = () => {
                     shadow
                   />
                 </div>
-
+                <Link href={'/forgot-password'}>
+                  <p className="text-center pr-2 md:text-center text-blue-950 text-sm">
+                    Forgot Password ?
+                  </p>
+                </Link>
                 <Button color="dark" type="submit">
                   Submit
                 </Button>
