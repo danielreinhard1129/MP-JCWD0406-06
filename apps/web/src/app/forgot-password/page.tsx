@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import NextTopLoader from 'nextjs-toploader';
+import React, { useState } from "react";
+import NextTopLoader from "nextjs-toploader";
 
 const ForgotPasswordPage = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -13,12 +13,12 @@ const ForgotPasswordPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement forgot password logic
-    console.log('Forgot password form submitted');
+    console.log("Forgot password form submitted");
   };
 
   return (
     <main className="container max-w-7xl mx-auto">
-      <NextTopLoader color="#000" showSpinner={false} />
+      <NextTopLoader color="#ffffff" showSpinner={false} />
       <div className="flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen">
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-4 text-purple-800">
