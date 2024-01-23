@@ -61,8 +61,8 @@ const RegisterCard = () => {
   return (
     <>
       <ToastContainer />
-      <div className="min-h-screen flex justify-center items-center">
-        <div className="container max-w-4xl flex flex-col md:flex-row bg-slate-700 rounded-md">
+      <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 ">
+        <div className="container max-w-5xl flex flex-col md:flex-row bg-slate-700 rounded-md">
           <div className="w-full md:w-1/2 py-[10px] flex flex-col justify-center items-center">
             <h1 className="text-zinc-300 font-bold text-2xl ml-3 mb-5 mt-5">
               Welcome Back!
@@ -79,7 +79,7 @@ const RegisterCard = () => {
             </Link>
           </div>
           <div className="w-full md:w-1/2 p-5">
-            <div className="bg-white h-full rounded-md">
+            <div className="flex justify-center bg-white h-full rounded-md">
               <RegisterForm onSubmit={handleSubmit} />{' '}
               {/* use RegisterForm here */}
             </div>
