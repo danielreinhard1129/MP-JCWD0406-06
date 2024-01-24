@@ -1,37 +1,34 @@
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-// Define a type for the slice state
 interface UserState {
   id: number;
-  name: string;
+  fullName: string;
   email: string;
-  isVerified: boolean;
+  roleId: number;
 }
 
-// Define the initial state using that type
 const initialState: UserState = {
   id: 0,
-  name: "",
-  email: "",
-  isVerified: false,
+  fullName: '',
+  email: '',
+  roleId: 0,
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     loginAction: (state, action: PayloadAction<UserState>) => {
       state.id = action.payload.id;
-      state.name = action.payload.name;
+      state.fullName = action.payload.fullName;
       state.email = action.payload.email;
-      state.isVerified = action.payload.isVerified;
+      state.roleId = action.payload.roleId;
     },
     logoutAction: (state) => {
-      (state.id = 0),
-        (state.name = ""),
-        (state.email = ""),
-        (state.isVerified = false);
+      state.id = 0;
+      state.fullName = '';
+      state.email = '';
     },
   },
 });

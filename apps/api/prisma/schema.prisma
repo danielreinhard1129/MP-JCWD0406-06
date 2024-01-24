@@ -28,8 +28,8 @@ model User {
   contact         String?
   address         String?
   referral_number String        @unique
-  updateAt        DateTime      @default(now())
-  createdAt       DateTime      @updatedAt
+  updateAt        DateTime      @updatedAt
+  createdAt       DateTime      @default(now())
   roleId          Int
   role            Role          @relation(fields: [roleId], references: [id])
   point_balance   Point[]
