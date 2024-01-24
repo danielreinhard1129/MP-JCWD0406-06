@@ -2,42 +2,52 @@
 
 'use client'; // Fix typo
 
+import { loginAction } from '@/lib/features/userSlice';
+import { useAppDispatch } from '@/lib/hooks';
 import axios, { AxiosError } from 'axios';
 import { Button, Label, TextInput } from 'flowbite-react';
-import { useFormik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { toast } from 'sonner';
 
 const LoginCard = () => {
-  const [inputReferral, setInputReferral] = useState('');
-  const [success, setSuccess] = useState(false);
-  const baseUrl = 'http://localhost:8000/api';
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const formik = useFormik({
-    initialValues: {
-      password: '',
-      email: '',
-    },
-    onSubmit: async (values) => {
-      try {
-        await axios.post(baseUrl + '/users/login', {
-          password: values.password,
-          email: values.email,
-        });
-        alert('Login success');
-        router.push('/');
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          const errorMsg = error.response?.data || error.message;
-          alert(errorMsg);
-        }
+  const baseUrl = 'http://localhost:8000/api';
+
+  const handleLogin = async () => {
+    try {
+      if (!email || !password) {
+        return toast.error('Inputs cannot be empty');
       }
 
-      console.log(values);
-    },
-  });
+      const { data } = await axios.post(baseUrl + '/users/login', {
+        email,
+        password,
+      });
+      dispatch(loginAction(data.data));
+      localStorage.setItem('token_auth', data.token);
+
+      toast.success('Login Success');
+      setTimeout(() => {
+        router.push('/');
+      }, 1000);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMsg = error.response?.data || error.message;
+
+        toast.error(errorMsg, {
+          position: 'top-right',
+        });
+      }
+    }
+  };
 
   return (
     <>
@@ -61,7 +71,10 @@ const LoginCard = () => {
             <div className="bg-white h-full rounded-md">
               <form
                 className="flex max-w-md flex-col gap-4 p-10"
-                onSubmit={formik.handleSubmit}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleLogin();
+                }}
               >
                 <div className="flex justify-center items-center">
                   <h1 className="text-slate-700 font-bold text-2xl ">
@@ -74,8 +87,7 @@ const LoginCard = () => {
                     <Label htmlFor="email" value="Email" />
                   </div>
                   <TextInput
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
+                    onChange={(e) => setEmail(e.target.value)}
                     id="email"
                     type="email"
                     placeholder="yourmail@mail.com"
@@ -87,21 +99,29 @@ const LoginCard = () => {
                   <div className="mb-2 block">
                     <Label htmlFor="password" value="Password" />
                   </div>
-                  <TextInput
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    id="password"
-                    type="password"
-                    required
-                    shadow
-                  />
+                  <div className="relative">
+                    <TextInput
+                      onChange={(e) => setPassword(e.target.value)}
+                      id="password"
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      shadow
+                    />
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FaEye /> : <FaEyeSlash />}
+                    </button>
+                  </div>
                 </div>
                 <Link href={'/forgot-password'}>
                   <p className="text-center pr-2 md:text-center text-blue-950 text-sm">
                     Forgot Password ?
                   </p>
                 </Link>
-                <Button color="dark" type="submit">
+                <Button color="dark" type="button" onClick={handleLogin}>
                   Submit
                 </Button>
               </form>
