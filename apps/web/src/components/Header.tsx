@@ -113,7 +113,7 @@ export const Header = () => {
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-500 hover:text-white"
                       onClick={handleLogout}
                     >
-                      Logout
+                      Log-out
                     </Link>
                   </>
                 )}
