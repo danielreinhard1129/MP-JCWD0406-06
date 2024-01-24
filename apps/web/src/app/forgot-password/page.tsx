@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import NextTopLoader from 'nextjs-toploader';
+import Link from 'next/link';
+
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
@@ -37,6 +39,11 @@ const ForgotPasswordPage = () => {
                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
+            <Link href={'/login'}>
+              <p className="text-center pr-2 mb-2 md:text-center text-blue-950 text-sm">
+                Already remembered ?
+              </p>
+            </Link>
             <button
               type="submit"
               className="w-full bg-purple-500 text-white py-2 px-4 rounded-md hover:bg-purple-600"

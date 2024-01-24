@@ -4,13 +4,13 @@ import './globals.css';
 
 import StoreProvider from './StoreProvider';
 import Footer from '@/components/Footer';
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
-import 'aos'
-import 'aos/dist/aos.css'
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'aos';
+import 'aos/dist/aos.css';
 import { Header } from '@/components/Header';
-
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Symphony',
@@ -24,12 +24,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='font-primary'>
+      <body className="font-primary">
         <StoreProvider>
           <Header />
-          <main >
+          <main>
             {children}
-
+            <Toaster position="top-right" richColors duration={1000} />
           </main>
           <Footer />
         </StoreProvider>

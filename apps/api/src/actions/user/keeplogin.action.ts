@@ -4,26 +4,17 @@ import { createToken } from '@/lib/jwt';
 import { getUserByEmail } from '@/repositories/user/getUserByEmail';
 import { IUser } from '@/types/user.type';
 
-export const loginAction = async (data: IUser) => {
+export const keepLoginAction = async (email: string) => {
   try {
-    const { email, password } = data;
-
     const user = await getUserByEmail(email);
 
     if (!user) throw new Error('Account not found!');
 
-    const isPasswordValid = await comparePasswords(password, user.password);
-
-    if (!isPasswordValid) throw new Error('Invalid Password');
-
     const dataWithoutPassword = excludeFields(user, ['password']);
 
-    const token = createToken({ email: user.email });
-
     return {
-      message: 'Login success',
+      message: 'Keep Login success',
       data: dataWithoutPassword,
-      token,
     };
   } catch (error) {
     throw error;
