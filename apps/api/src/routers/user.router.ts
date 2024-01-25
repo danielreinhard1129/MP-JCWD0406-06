@@ -1,6 +1,5 @@
 import { UserController } from '@/controllers/user/user.controller';
 import { verifyToken } from '@/middleware/jwtVerifyToken';
-import { redirectIfAuthenticated } from '@/middleware/redirectIfAuthenticated';
 import { Router } from 'express';
 
 export class UserRouter {
@@ -14,17 +13,15 @@ export class UserRouter {
   }
 
   private initializeRoutes(): void {
-    this.router.post(
-      '/register',
-      redirectIfAuthenticated,
-      this.userController.registerUser,
-    );
-    this.router.post(
-      '/login',
-      redirectIfAuthenticated,
-      this.userController.loginUser,
-    );
+    this.router.post('/register', this.userController.registerUser);
+    this.router.post('/login', this.userController.loginUser);
     this.router.get('/keeplogin', verifyToken, this.userController.keepLogin);
+    this.router.post('/forgot-password', this.userController.forgotPassword);
+    this.router.patch(
+      '/reset-password',
+      verifyToken,
+      this.userController.resetPassword,
+    );
   }
 
   getRouter(): Router {

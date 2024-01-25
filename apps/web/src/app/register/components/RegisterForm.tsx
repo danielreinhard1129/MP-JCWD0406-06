@@ -55,8 +55,8 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
           <p className="text-red-500 text-sm mt-1">{formik.errors.fullName}</p>
         )}
       </div>
-      <div className="flex gap-2">
-        <div style={{ width: '50%' }}>
+      <div className="md:flex gap-2 flex-col md:flex-row">
+        <div className="w-full md:w-1/2">
           <label htmlFor="email" className="mb-2 block">
             Email
           </label>
@@ -67,17 +67,13 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
-            className={`w-full border ${
-              formik.errors.email && formik.touched.email
-                ? 'border-red-500'
-                : 'border-gray-300'
-            } rounded-md`}
+            className="border-white"
           />
           {formik.errors.email && formik.touched.email && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
           )}
         </div>
-        <div style={{ width: '50%' }}>
+        <div className="w-full md:w-1/2">
           <div className="mb-2 block">
             <Label htmlFor="contact" value="Contact" />
           </div>
@@ -89,14 +85,15 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             onBlur={formik.handleBlur}
             id="contact"
             name="contact"
+            className="rounded-sm"
           />
           {formik.errors.contact && formik.touched.contact && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.contact}</p>
           )}
         </div>
       </div>
-      <div className="flex gap-2">
-        <div>
+      <div className="md:flex gap-2 flex-col md:flex-row">
+        <div className="w-full md:w-1/2">
           <div className="mb-2 block">
             <Label htmlFor="password" value="Your password" />
           </div>
@@ -124,7 +121,7 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             </p>
           )}
         </div>
-        <div>
+        <div className="w-full md:w-1/2">
           <div className="mb-2 block">
             <Label htmlFor="confirmPassword" value="Confirm Password" />
           </div>
