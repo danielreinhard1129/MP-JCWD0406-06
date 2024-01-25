@@ -12,10 +12,10 @@ import * as yup from 'yup';
 import YupPassword from 'yup-password';
 import { IForm } from '../../../../types/form.type';
 import { RegisterForm } from './RegisterForm';
+import { baseUrl } from '@/utils/config';
 YupPassword(yup);
 
 const RegisterCard = () => {
-  const baseUrl = 'http://localhost:8000/api';
   const router = useRouter();
 
   const handleSubmit = async (values: IForm) => {
@@ -44,7 +44,7 @@ const RegisterCard = () => {
       });
       setTimeout(() => {
         router.push('/login');
-      }, 3000);
+      }, 1000);
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMsg = error.response?.data || error.message;
@@ -80,8 +80,7 @@ const RegisterCard = () => {
           </div>
           <div className="w-full md:w-1/2 p-5">
             <div className="flex justify-center bg-white h-full rounded-md">
-              <RegisterForm onSubmit={handleSubmit} />{' '}
-              {/* use RegisterForm here */}
+              <RegisterForm onSubmit={handleSubmit} />
             </div>
           </div>
         </div>
