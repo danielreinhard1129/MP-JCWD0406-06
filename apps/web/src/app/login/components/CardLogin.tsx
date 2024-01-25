@@ -4,6 +4,7 @@
 
 import { loginAction } from '@/lib/features/userSlice';
 import { useAppDispatch } from '@/lib/hooks';
+import { baseUrl } from '@/utils/config';
 import axios, { AxiosError } from 'axios';
 import { Button, Label, TextInput } from 'flowbite-react';
 import Link from 'next/link';
@@ -18,8 +19,6 @@ const LoginCard = () => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const baseUrl = 'http://localhost:8000/api';
 
   const handleLogin = async () => {
     try {

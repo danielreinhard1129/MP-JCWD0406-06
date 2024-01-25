@@ -1,8 +1,5 @@
 import { excludeFields } from '@/helper/excludeFields';
-import { comparePasswords } from '@/lib/bcrypt';
-import { createToken } from '@/lib/jwt';
 import { getUserByEmail } from '@/repositories/user/getUserByEmail';
-import { IUser } from '@/types/user.type';
 
 export const keepLoginAction = async (email: string) => {
   try {

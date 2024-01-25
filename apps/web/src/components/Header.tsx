@@ -13,6 +13,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { loginAction, logoutAction } from '@/lib/features/userSlice';
 import axios from 'axios';
+import { baseUrl } from '@/utils/config';
 
 export const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -24,7 +25,6 @@ export const Header = () => {
     localStorage.removeItem('token_auth');
     dispatch(logoutAction());
   };
-  const baseUrl = 'http://localhost:8000/api';
 
   useEffect(() => {
     const token = localStorage.getItem('token_auth');

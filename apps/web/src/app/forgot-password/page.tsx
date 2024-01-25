@@ -3,58 +3,71 @@
 import React, { useState } from 'react';
 import NextTopLoader from 'nextjs-toploader';
 import Link from 'next/link';
+import axios, { AxiosError } from 'axios';
+import { baseUrl } from '@/utils/config';
+import { toast } from 'sonner';
+import { Button, Label, TextInput } from 'flowbite-react';
+import { useRouter } from 'next/navigation';
 
+const CardForgotPassword = () => {
+  const router = useRouter();
 
-const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  const handleForgotPassword = async () => {
+    try {
+      if (!email) {
+        return toast('Input cannot be empty !');
+      }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement forgot password logic
-    console.log('Forgot password form submitted');
+      await axios.post(baseUrl + '/users/forgot-password', { email });
+
+      toast.success('Email forgot password sent successfully');
+      router.push('/');
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMsg = error.response?.data || error.message;
+        toast.error(errorMsg);
+      }
+    }
   };
 
   return (
-    <main className="container max-w-7xl mx-auto r">
+    <main className="flex justify-center items-center min-h-screen p-4">
       <NextTopLoader color="#000" showSpinner={false} />
-      <div className="flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen">
-        <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-4 text-purple-800 font">
+      <div className="flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 w-full max-w-md mx-auto rounded-lg shadow-md p-6">
+        <form className="flex flex-col gap-4 p-10 w-full">
+          <h1 className="text-slate-700 font-bold text-2xl ">
             Forgot Password
-          </h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="email" className="block mb-2 text-gray-700">
-                Email:
-              </label>
-              <input
-                type="email"
+          </h1>
+          <div className="flex justify-center items-center"></div>
+
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="email" value="Email" />
+            </div>
+            <div className="relative">
+              <TextInput
+                onChange={(e) => setEmail(e.target.value)}
                 id="email"
-                value={email}
-                onChange={handleEmailChange}
-                className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                type="email"
+                required
+                shadow
               />
             </div>
-            <Link href={'/login'}>
-              <p className="text-center pr-2 mb-2 md:text-center text-blue-950 text-sm">
-                Already remembered ?
-              </p>
-            </Link>
-            <button
-              type="submit"
-              className="w-full bg-purple-500 text-white py-2 px-4 rounded-md hover:bg-purple-600"
-            >
-              Reset Password
-            </button>
-          </form>
-        </div>
+          </div>
+          <Link href={'/login'}>
+            <p className="text-center pr-2 mb-2 md:text-center text-blue-950 text-sm">
+              Already remembered ?
+            </p>
+          </Link>
+          <Button color="dark" type="button" onClick={handleForgotPassword}>
+            Reset Password
+          </Button>
+        </form>
       </div>
     </main>
   );
 };
 
-export default ForgotPasswordPage;
+export default CardForgotPassword;
