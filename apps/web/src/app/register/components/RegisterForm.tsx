@@ -1,11 +1,14 @@
+import { baseUrl } from '@/utils/config';
+import axios, { AxiosError } from 'axios';
 import { Button, Label, Select, TextInput } from 'flowbite-react';
 import { useFormik } from 'formik';
-import { IForm } from '../../../../types/form.type';
-import { validationSchema } from './validationSchema';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import { toast } from 'sonner';
+import { IForm } from '../../../../types/form.type';
+import { validationSchema } from './validationSchema';
 
 interface RegisterFormProps {
   onSubmit: (values: IForm) => void;
@@ -14,6 +17,9 @@ interface RegisterFormProps {
 export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isReferralValid, setIsReferralValid] = useState(false);
+  const [referralError, setReferralError] = useState<string | null>(null);
+  const [referralCode, setReferralCode] = useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -27,8 +33,32 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
       confirmPassword: '',
     },
     validationSchema,
-    onSubmit,
+    onSubmit: (values) => {
+      onSubmit(values);
+    },
   });
+
+  const handleClaimClick = async () => {
+    try {
+      const response = await axios.post(baseUrl + '/users/claim-refferal', {
+        referralCode: formik.values.referral_number,
+      });
+
+      if (response.data.error) {
+        toast.error(response.data.error);
+        setReferralError(response.data.error);
+      } else {
+        toast.success('Success claim referral');
+        setIsReferralValid(true); // set isReferralValid to true here
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMsg = error.response?.data || error.message;
+        toast.error(errorMsg);
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <form
@@ -167,10 +197,10 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
           <p className="text-red-500 text-sm mt-1">{formik.errors.address}</p>
         )}
       </div>
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="referral_number" value="Referral Number (Optional)" />
-        </div>
+      <div className="mb-2 block">
+        <Label htmlFor="referral_number" value="Referral Number (Optional)" />
+      </div>
+      <div className="flex gap-2">
         <TextInput
           value={formik.values.referral_number}
           onChange={formik.handleChange}
@@ -178,13 +208,21 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
           id="referral_number"
           type="text"
           shadow
+          className="w-full"
         />
-        {formik.errors.referral_number && formik.touched.referral_number && (
-          <p className="text-red-500 text-sm mt-1">
-            {formik.errors.referral_number}
-          </p>
-        )}
+        <button
+          type="button"
+          onClick={handleClaimClick}
+          className="p-2 bg-black rounded-md text-nowrap text-white hover:cursor-pointer hover:bg-slate-600"
+        >
+          Claim
+        </button>
       </div>
+      {formik.errors.referral_number && formik.touched.referral_number && (
+        <p className="text-red-500 text-sm mt-1">
+          {formik.errors.referral_number}
+        </p>
+      )}
       <div className="block">
         <Label htmlFor="roleId" value="Role" />
       </div>

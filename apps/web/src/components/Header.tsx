@@ -101,6 +101,15 @@ export const Header = () => {
                     <div className="block px-4 py-2 text-sm text-gray-700">
                       {user.email}
                     </div>
+                    {user.roleId === 2 && (
+                      <Link
+                        href="/dashboard"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-500 hover:text-white"
+                        onClick={() => setShowDropdown(false)}
+                      >
+                        Dashboard
+                      </Link>
+                    )}
                     <Link
                       href="/profile"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-500 hover:text-white"

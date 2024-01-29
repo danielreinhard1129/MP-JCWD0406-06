@@ -32,7 +32,7 @@ model User {
   createdAt       DateTime      @default(now())
   roleId          Int
   role            Role          @relation(fields: [roleId], references: [id])
-  point_balance   Point[]
+  point           Point[]
   userReward      UserReward[]
   userVoucher     UserVoucher[]
 }
@@ -60,13 +60,11 @@ model Event {
 }
 
 model Point {
-  id            Int      @id @default(autoincrement())
-  point_balance Int      @default(0)
-  userId        Int
-  expiresAt     DateTime
-  createAt      DateTime @default(now())
-  updateAt      DateTime @updatedAt
-  user          User     @relation(fields: [userId], references: [id])
+  id      Int      @id @default(autoincrement())
+  userId  Int      @unique
+  amount  Int      @default(0) // Jumlah poin yang diperoleh, default diatur ke 0
+  expired DateTime
+  user    User     @relation(fields: [userId], references: [id])
 }
 
 model Reward {
