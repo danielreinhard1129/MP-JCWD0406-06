@@ -15,4 +15,13 @@ export const eventAction = {
   getEventById: async (eventId: number) => {
     return eventRepository.getEventById(eventId);
   },
+  editEvent: async (eventId: number, eventData: any) => {
+    return eventRepository.editEvent(eventId, eventData);
+  },
+  deleteEvent: async (eventId: number) => {
+    return eventRepository.deleteEvent(eventId);
+  },
+  getEventsByCategory: async (categoryId: number) => {
+    return eventRepository.getEventsByCategory(categoryId);
+  },
 };

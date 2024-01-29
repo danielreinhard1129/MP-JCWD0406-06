@@ -1,3 +1,4 @@
+
 import { Button, Label, Select, TextInput } from 'flowbite-react';
 import { useFormik } from 'formik';
 import { IForm } from '../../../../types/form.type';
@@ -6,6 +7,7 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 interface RegisterFormProps {
   onSubmit: (values: IForm) => void;
@@ -17,14 +19,14 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
 
   const formik = useFormik({
     initialValues: {
-      fullName: '',
-      password: '',
-      email: '',
-      contact: '',
-      address: '',
-      referral_number: '',
-      roleId: '',
-      confirmPassword: '',
+      fullName: "",
+      password: "",
+      email: "",
+      contact: "",
+      address: "",
+      referral_number: "",
+      roleId: "",
+      confirmPassword: "",
     },
     validationSchema,
     onSubmit,
@@ -55,8 +57,10 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
           <p className="text-red-500 text-sm mt-1">{formik.errors.fullName}</p>
         )}
       </div>
+     
+
       <div className="md:flex gap-2 flex-col md:flex-row">
-        <div className="w-full md:w-1/2">
+
           <label htmlFor="email" className="mb-2 block">
             Email
           </label>
@@ -67,12 +71,14 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
-            className="border-white"
+
           />
           {formik.errors.email && formik.touched.email && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
           )}
         </div>
+
+
         <div className="w-full md:w-1/2">
           <div className="mb-2 block">
             <Label htmlFor="contact" value="Contact" />
@@ -81,7 +87,7 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             international
             defaultCountry="ID"
             value={formik.values.contact}
-            onChange={(value) => formik.setFieldValue('contact', value)}
+            onChange={(value) => formik.setFieldValue("contact", value)}
             onBlur={formik.handleBlur}
             id="contact"
             name="contact"
@@ -195,8 +201,8 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
         onChange={formik.handleChange}
       >
         <option value="">Select your Role</option>
-        <option value={'customer'}>Customer</option>
-        <option value={'promotor'}>Promotor</option>
+        <option value={"customer"}>Customer</option>
+        <option value={"promotor"}>Promotor</option>
       </Select>
       <Button color="dark" type="submit">
         Submit

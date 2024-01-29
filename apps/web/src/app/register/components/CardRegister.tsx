@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 
-'use client';
+"use client";
+
+
 
 import axios, { AxiosError } from 'axios';
 import { Button } from 'flowbite-react';
@@ -16,18 +18,19 @@ import { baseUrl } from '@/utils/config';
 YupPassword(yup);
 
 const RegisterCard = () => {
+
   const router = useRouter();
 
   const handleSubmit = async (values: IForm) => {
     try {
       let roleId;
 
-      if (values.roleId === 'customer') {
+      if (values.roleId === "customer") {
         roleId = 1;
       } else {
         roleId = 2;
       }
-      await axios.post(baseUrl + '/users/register', {
+      await axios.post(baseUrl + "/users/register", {
         fullName: values.fullName,
         password: values.password,
         email: values.email,
@@ -37,22 +40,24 @@ const RegisterCard = () => {
         roleId: roleId,
       });
 
-      toast.success('Register Success', {
-        position: 'top-right',
+      toast.success("Register Success", {
+        position: "top-right",
         autoClose: 1000,
-        theme: 'light',
+        theme: "light",
       });
       setTimeout(() => {
+
         router.push('/login');
       }, 1000);
+
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMsg = error.response?.data || error.message;
 
         toast.error(errorMsg, {
-          position: 'top-right',
+          position: "top-right",
           autoClose: 1000,
-          theme: 'light',
+          theme: "light",
         });
       }
     }
@@ -67,12 +72,14 @@ const RegisterCard = () => {
             <h1 className="text-zinc-300 font-bold text-2xl ml-3 mb-5 mt-5">
               Welcome Back!
             </h1>
-            <p className="text-center text-yellow-200 text-sm mx-auto w-full md:w-auto">
+
+
+
               Already have an account ?
               <br /> To keep connected with us please login with your personal
               info
             </p>
-            <Link href={'/login'}>
+            <Link href={"/login"}>
               <Button className="mt-[20px]" color="light" pill>
                 Sign In
               </Button>
@@ -80,7 +87,9 @@ const RegisterCard = () => {
           </div>
           <div className="w-full md:w-1/2 p-5">
             <div className="flex justify-center bg-white h-full rounded-md">
+
               <RegisterForm onSubmit={handleSubmit} />
+
             </div>
           </div>
         </div>

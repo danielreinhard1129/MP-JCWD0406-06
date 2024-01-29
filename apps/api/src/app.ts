@@ -13,6 +13,7 @@ import { SampleRouter } from "./routers/sample.router";
 import { EventRouter } from "./routers/event.router";
 import { join } from "path";
 import { UserRouter } from "./routers/user.router";
+import { ReviewRouter } from "./routers/review.router";
 
 export default class App {
   private app: Express;
@@ -58,6 +59,7 @@ export default class App {
     const sampleRouter = new SampleRouter();
     const eventRouter = new EventRouter();
     const userRouter = new UserRouter();
+    const reviewRouter = new ReviewRouter();
 
     this.app.get("/api", (req: Request, res: Response) => {
       res.send(`Hello, Purwadhika Student !`);
@@ -67,6 +69,8 @@ export default class App {
 
     // router event handlers
     this.app.use("/api", eventRouter.router);
+    this.app.use("/api", reviewRouter.router);
+
     this.app.use("/api/users", userRouter.getRouter());
   }
 

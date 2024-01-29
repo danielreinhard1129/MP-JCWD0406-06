@@ -1,5 +1,5 @@
-import NextTopLoader from 'nextjs-toploader';
-import LoginCard from './components/CardLogin';
+import NextTopLoader from "nextjs-toploader";
+import LoginCard from "./components/CardLogin";
 
 const Register = () => {
   return (

@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 
 import React, { useState } from 'react';
 import NextTopLoader from 'nextjs-toploader';
@@ -14,11 +15,13 @@ const CardForgotPassword = () => {
 
   const [email, setEmail] = useState('');
 
+
   const handleForgotPassword = async () => {
     try {
       if (!email) {
         return toast('Input cannot be empty !');
       }
+
 
       await axios.post(baseUrl + '/users/forgot-password', { email });
 
