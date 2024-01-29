@@ -19,6 +19,7 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isReferralValid, setIsReferralValid] = useState(false);
   const [referralError, setReferralError] = useState<string | null>(null);
+
   const [referralCode, setReferralCode] = useState("");
 
   const formik = useFormik({
