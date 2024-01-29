@@ -65,4 +65,56 @@ export const eventController = {
       return res.status(500).json({ error: "Failed to get event by id" });
     }
   },
+
+  editEvent: async (req: Request, res: Response) => {
+    try {
+      const eventId = parseInt(req.params.id);
+      if (isNaN(eventId)) {
+        throw new Error("Invalid eventId. Please provide a valid eventId");
+      }
+
+      const eventData = req.body;
+      const editedEvent = await eventAction.editEvent(eventId, eventData);
+
+      return res.status(200).json(editedEvent);
+    } catch (error) {
+      console.error("Error editing event:", error);
+      return res.status(500).json({ error: "Failed to edit event" });
+    }
+  },
+
+  deleteEvent: async (req: Request, res: Response) => {
+    try {
+      const eventId = parseInt(req.params.id);
+      if (isNaN(eventId)) {
+        throw new Error("Invalid eventId. Please provide a valid eventId");
+      }
+
+      await eventAction.deleteEvent(eventId);
+
+      return res.status(204).json(); // No content for successful deletion
+    } catch (error) {
+      console.error("Error deleting event:", error);
+      return res.status(500).json({ error: "Failed to delete event" });
+    }
+  },
+  getEventsByCategory: async (req: Request, res: Response) => {
+    try {
+      const categoryId = parseInt(req.params.categoryId);
+      if (isNaN(categoryId)) {
+        throw new Error(
+          "Invalid categoryId. Please provide a valid categoryId"
+        );
+      }
+
+      const events = await eventAction.getEventsByCategory(categoryId);
+
+      return res.status(200).json(events);
+    } catch (error) {
+      console.error("Error getting events by category:", error);
+      return res
+        .status(500)
+        .json({ error: "Failed to get events by category" });
+    }
+  },
 };

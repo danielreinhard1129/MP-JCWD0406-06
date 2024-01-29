@@ -1,10 +1,15 @@
-import React from "react";
+
+import React, { Suspense } from "react";
 import Homepage from "./home/page";
+import Loading from "@/components/Loading";
+
 
 export default function Home() {
   return (
     <div className="overflow-hidden">
-      <Homepage />
+      <Suspense fallback={<Loading />}>
+        <Homepage />
+      </Suspense>
     </div>
   );
 }
