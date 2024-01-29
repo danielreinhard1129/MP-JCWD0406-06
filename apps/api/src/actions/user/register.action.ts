@@ -1,25 +1,46 @@
+// import { hashPassword } from '@/lib/bcrypt';
+
 import { hashPassword } from '@/lib/bcrypt';
+import { nanoid } from '@/lib/nanoid';
+import { createPointUser } from '@/repositories/rewards/createPoint';
+import { createUserReward } from '@/repositories/rewards/createUserReward';
 import { createUser } from '@/repositories/user/createUser';
 import { getUserByEmail } from '@/repositories/user/getUserByEmail';
+import { findRefferalRepo } from '@/repositories/user/getUserByReferral.repository';
 import { IUser } from '@/types/user.type';
-import { v4 as uuidv4 } from 'uuid';
 
-export const registerAction = async (data: IUser) => {
+export const registerAction = async (body: IUser, referral_number: string) => {
   try {
-    const generateReferralNumber: string = uuidv4().substring(0, 8);
+    const { email, password } = body;
 
-    const user = await getUserByEmail(data.email);
+    const userEmail = await getUserByEmail(email);
 
-    if (user) throw new Error('Email already exist');
+    if (userEmail) {
+      return {
+        status: 400,
+        message: 'Email already exist',
+      };
+    }
+    // Hashing password
+    const hashedPassword = await hashPassword(password);
+    body.password = hashedPassword;
 
-    const hashedPassword = await hashPassword(data.password);
-    data.password = hashedPassword;
-
-    await createUser(data, generateReferralNumber);
+    const refferalData = await findRefferalRepo(referral_number);
+    const refferal = nanoid();
+    const userRegister = await createUser(body, refferal);
+    if (refferalData) {
+      await createPointUser(refferalData.id),
+        await createUserReward(
+          userRegister.id,
+          1,
+          new Date(new Date().getTime() + 90 * 24 * 60 * 60 * 1000),
+        );
+    }
 
     return {
-      message: 'Register success',
       status: 200,
+      message: 'Register success',
+      refferalData,
     };
   } catch (error) {
     throw error;

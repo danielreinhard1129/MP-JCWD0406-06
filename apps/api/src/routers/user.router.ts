@@ -22,6 +22,8 @@ export class UserRouter {
       verifyToken,
       this.userController.resetPassword,
     );
+    this.router.post('/claim-refferal', this.userController.claimRefferal);
+    this.router.post('/claim-reward', this.userController.claimRefferal);
   }
 
   getRouter(): Router {
