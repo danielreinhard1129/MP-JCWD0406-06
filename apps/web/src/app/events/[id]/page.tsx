@@ -38,9 +38,9 @@ const EventDetail = () => {
     }
   };
 
-  if (id) {
-    getEventById();
-  }
+  // if (id) {
+  //   getEventById();
+  // }
   useEffect(() => {
     getEventById();
   }, [id]);
