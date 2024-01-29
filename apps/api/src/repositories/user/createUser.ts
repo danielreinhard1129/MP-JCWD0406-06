@@ -1,9 +1,9 @@
-import prisma from '@/prisma';
-import { IUser } from '@/types/user.type';
+import prisma from "@/prisma";
+import { IUser } from "@/types/user.type";
 
 export const createUser = async (
   data: IUser,
-  generateReferralNumber: string,
+  generateReferralNumber: string
 ) => {
   try {
     const { fullName, password, email, contact, address, roleId } = data;

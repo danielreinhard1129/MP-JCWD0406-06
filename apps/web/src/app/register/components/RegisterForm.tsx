@@ -40,17 +40,11 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
 
   const handleClaimClick = async () => {
     try {
-      const response = await axios.post(baseUrl + '/users/claim-refferal', {
+      await axios.post(baseUrl + '/users/claim-refferal', {
         referralCode: formik.values.referral_number,
       });
-
-      if (response.data.error) {
-        toast.error(response.data.error);
-        setReferralError(response.data.error);
-      } else {
-        toast.success('Success claim referral');
-        setIsReferralValid(true); // set isReferralValid to true here
-      }
+      toast.success('Success claim referral');
+      setIsReferralValid(true); // set isReferralValid to true here
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMsg = error.response?.data || error.message;

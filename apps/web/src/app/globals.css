@@ -1,17 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Oswald:wght@400;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,400;1,700&display=swap');
 @layer components {
+  body {
+    @apply font-primary;
+  }
+
+  .font-primary {
+    font-family: 'Rokkitt', sans-serif;
+  }
+
   .bg {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 46, 0.6)),
-      url('/images/banner.jpg');
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 46, 0.7)),
+      url('/images/banner2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
+  }
+  .footer_link {
+    @apply text-white text-[15px] opacity-70 mb-[1rem] w-fit cursor-pointer hover:text-yellow-400;
+  }
+
+  .bg-secondary {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 46, 0.7)),
+      url('/images/banner2.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
-  .footer_link {
-    @apply text-white text-[15px] opacity-70 mb-[1rem] w-fit cursor-pointer hover:text-yellow-400;
+  .product-card:hover .transition-transform {
+    transform: scale(1.05);
   }
 }

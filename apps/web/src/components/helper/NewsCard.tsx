@@ -11,9 +11,9 @@ interface Props {
 const NewsCard = ({ image, title }: Props) => {
   return (
     <>
-      <div className="col-span-2">
+      <div className="col-span-2  shadow-md">
         <Image
-          className="w-[100%] h-[80%] rounded-md"
+          className="w-[100%] md:w-[100%] h-[100%] sm:h-[70%] rounded-md  shadow-lg"
           src={`${image}`}
           alt={title}
           width={300}
@@ -21,12 +21,12 @@ const NewsCard = ({ image, title }: Props) => {
         />
       </div>
       <div className="col-span-4">
-        <h1 className="text-[22px] mb-[1rem] text-white capitalize ">
+        <h1 className="text-[22px] mb-[1rem] text-orange-500 capitalize ">
           {title}
         </h1>
         <div className="flex mb-[0.4rem] items-center space-x-2">
           <CalendarDaysIcon className="w-[1.5rem] h-[1.5rem] text-white opacity-85" />
-          <p className=" text-gray-300 opacity-95 font-thin text-[14px]">
+          <p className="  text-black opacity-95  text-[17px] font-semibold">
             February 14,2024
           </p>
         </div>
@@ -46,7 +46,9 @@ const NewsCard = ({ image, title }: Props) => {
           merupakan kesempatan langka untuk mendengarkan nasihat bijak dari
           seorang ulama
         </div>
-        <ButtonComp />
+        <div className=" mt-2">
+          <ButtonComp />
+        </div>
       </div>
     </>
   );

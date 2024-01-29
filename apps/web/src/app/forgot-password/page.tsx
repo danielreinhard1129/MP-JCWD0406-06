@@ -1,29 +1,29 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import NextTopLoader from 'nextjs-toploader';
-import Link from 'next/link';
-import axios, { AxiosError } from 'axios';
-import { baseUrl } from '@/utils/config';
-import { toast } from 'sonner';
-import { Button, Label, TextInput } from 'flowbite-react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from "react";
+import NextTopLoader from "nextjs-toploader";
+import Link from "next/link";
+import axios, { AxiosError } from "axios";
+import { baseUrl } from "@/utils/config";
+import { toast } from "sonner";
+import { Button, Label, TextInput } from "flowbite-react";
+import { useRouter } from "next/navigation";
 
 const CardForgotPassword = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleForgotPassword = async () => {
     try {
       if (!email) {
-        return toast('Input cannot be empty !');
+        return toast("Input cannot be empty !");
       }
 
-      await axios.post(baseUrl + '/users/forgot-password', { email });
+      await axios.post(baseUrl + "/users/forgot-password", { email });
 
-      toast.success('Email forgot password sent successfully');
-      router.push('/');
+      toast.success("Email forgot password sent successfully");
+      router.push("/");
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMsg = error.response?.data || error.message;
@@ -56,7 +56,7 @@ const CardForgotPassword = () => {
               />
             </div>
           </div>
-          <Link href={'/login'}>
+          <Link href={"/login"}>
             <p className="text-center pr-2 mb-2 md:text-center text-blue-950 text-sm">
               Already remembered ?
             </p>
