@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -11,6 +12,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import StoreProvider from "./StoreProvider";
+
+
 
 export const metadata: Metadata = {
   title: "Symphony",
@@ -27,9 +30,11 @@ export default function RootLayout({
       <body className="font-primary">
         <StoreProvider>
           <Header />
+
           <Suspense fallback={<Loading />}>
             <main>{children}</main>
           </Suspense>
+
           <Footer />
         </StoreProvider>
       </body>

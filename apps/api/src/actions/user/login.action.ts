@@ -1,15 +1,29 @@
+import { excludeFields } from '@/helper/excludeFields';
+import { comparePasswords } from '@/lib/bcrypt';
+import { createToken } from '@/lib/jwt';
 import { getUserByEmail } from '@/repositories/user/getUserByEmail';
 import { IUser } from '@/types/user.type';
 
-export const registerAction = async (data: IUser) => {
+export const loginAction = async (data: IUser) => {
   try {
-    const user = await getUserByEmail(data.email);
+    const { email, password } = data;
 
-    if (user) throw new Error('Email already exist');
+    const user = await getUserByEmail(email);
+
+    if (!user) throw new Error('Account not found!');
+
+    const isPasswordValid = await comparePasswords(password, user.password);
+
+    if (!isPasswordValid) throw new Error('Invalid Password');
+
+    const dataWithoutPassword = excludeFields(user, ['password']);
+
+    const token = createToken({ email: user.email });
 
     return {
-      message: 'Register success',
-      status: 200,
+      message: 'Login success',
+      data: dataWithoutPassword,
+      token,
     };
   } catch (error) {
     throw error;

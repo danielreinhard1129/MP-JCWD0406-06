@@ -1,15 +1,22 @@
-import { Button, Label, Select, TextInput } from "flowbite-react";
-import { useFormik } from "formik";
-import { IForm } from "../../../../types/form.type";
-import { validationSchema } from "./validationSchema";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
+
+import { Button, Label, Select, TextInput } from 'flowbite-react';
+import { useFormik } from 'formik';
+import { IForm } from '../../../../types/form.type';
+import { validationSchema } from './validationSchema';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 interface RegisterFormProps {
   onSubmit: (values: IForm) => void;
 }
 
 export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -50,8 +57,10 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
           <p className="text-red-500 text-sm mt-1">{formik.errors.fullName}</p>
         )}
       </div>
-      <div className="flex gap-2">
-        <div style={{ width: "50%" }}>
+     
+
+      <div className="md:flex gap-2 flex-col md:flex-row">
+
           <label htmlFor="email" className="mb-2 block">
             Email
           </label>
@@ -62,17 +71,15 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
-            className={`w-full border ${
-              formik.errors.email && formik.touched.email
-                ? "border-red-500"
-                : "border-gray-300"
-            } rounded-md`}
+
           />
           {formik.errors.email && formik.touched.email && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
           )}
         </div>
-        <div style={{ width: "50%" }}>
+
+
+        <div className="w-full md:w-1/2">
           <div className="mb-2 block">
             <Label htmlFor="contact" value="Contact" />
           </div>
@@ -84,45 +91,64 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             onBlur={formik.handleBlur}
             id="contact"
             name="contact"
+            className="rounded-sm"
           />
           {formik.errors.contact && formik.touched.contact && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.contact}</p>
           )}
         </div>
       </div>
-      <div className="flex gap-2">
-        <div>
+      <div className="md:flex gap-2 flex-col md:flex-row">
+        <div className="w-full md:w-1/2">
           <div className="mb-2 block">
             <Label htmlFor="password" value="Your password" />
           </div>
-          <TextInput
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            id="password"
-            type="password"
-            required
-            shadow
-          />
+          <div className="relative">
+            <TextInput
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              required
+              shadow
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </button>
+          </div>
           {formik.errors.password && formik.touched.password && (
             <p className="text-red-500 text-sm mt-1">
               {formik.errors.password}
             </p>
           )}
         </div>
-        <div>
+        <div className="w-full md:w-1/2">
           <div className="mb-2 block">
             <Label htmlFor="confirmPassword" value="Confirm Password" />
           </div>
-          <TextInput
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            id="confirmPassword"
-            type="password"
-            required
-            shadow
-          />
+          <div className="relative">
+            <TextInput
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              id="confirmPassword"
+              type={showConfirmPassword ? 'text' : 'password'}
+              required
+              shadow
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+            </button>
+          </div>
           {formik.errors.confirmPassword && formik.touched.confirmPassword && (
             <p className="text-red-500 text-sm mt-1">
               {formik.errors.confirmPassword}
