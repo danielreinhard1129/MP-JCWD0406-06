@@ -15,7 +15,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        primary: ["Oswald", "sans-serif"],
+        primary: ["Rokkitt", "serif"],
       },
     },
   },

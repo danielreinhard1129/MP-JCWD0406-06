@@ -1,20 +1,20 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
+import type { Metadata } from "next";
+import "./globals.css";
 
-import StoreProvider from './StoreProvider';
-import Footer from '@/components/Footer';
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
-import 'aos'
-import 'aos/dist/aos.css'
-import { Header } from '@/components/Header';
-
+import Footer from "@/components/Footer";
+import { Header } from "@/components/Header";
+import Loading from "@/components/Loading";
+import "aos";
+import "aos/dist/aos.css";
+import { Suspense } from "react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import StoreProvider from "./StoreProvider";
 
 export const metadata: Metadata = {
-  title: 'Symphony',
-  description: 'Generated Events',
+  title: "Symphony",
+  description: "Generated Events",
 };
 
 export default function RootLayout({
@@ -24,13 +24,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='font-primary'>
+      <body className="font-primary">
         <StoreProvider>
           <Header />
-          <main >
-            {children}
-
-          </main>
+          <Suspense fallback={<Loading />}>
+            <main>{children}</main>
+          </Suspense>
           <Footer />
         </StoreProvider>
       </body>

@@ -23,6 +23,12 @@ export class EventRouter {
       uploader("IMG", "/events").single("image"),
       eventController.appendImageToEvent
     );
+    this.router.delete("/events/:id", eventController.deleteEvent);
+    this.router.put("/events/:id", eventController.editEvent);
+    this.router.get(
+      "/events/category/:categoryId",
+      eventController.getEventsByCategory
+    );
   }
 }
 

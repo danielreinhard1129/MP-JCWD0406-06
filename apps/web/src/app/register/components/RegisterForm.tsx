@@ -1,9 +1,9 @@
-import { Button, Label, Select, TextInput } from 'flowbite-react';
-import { useFormik } from 'formik';
-import { IForm } from '../../../../types/form.type';
-import { validationSchema } from './validationSchema';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
+import { Button, Label, Select, TextInput } from "flowbite-react";
+import { useFormik } from "formik";
+import { IForm } from "../../../../types/form.type";
+import { validationSchema } from "./validationSchema";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 interface RegisterFormProps {
   onSubmit: (values: IForm) => void;
@@ -12,14 +12,14 @@ interface RegisterFormProps {
 export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
   const formik = useFormik({
     initialValues: {
-      fullName: '',
-      password: '',
-      email: '',
-      contact: '',
-      address: '',
-      referral_number: '',
-      roleId: '',
-      confirmPassword: '',
+      fullName: "",
+      password: "",
+      email: "",
+      contact: "",
+      address: "",
+      referral_number: "",
+      roleId: "",
+      confirmPassword: "",
     },
     validationSchema,
     onSubmit,
@@ -51,7 +51,7 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
         )}
       </div>
       <div className="flex gap-2">
-        <div style={{ width: '50%' }}>
+        <div style={{ width: "50%" }}>
           <label htmlFor="email" className="mb-2 block">
             Email
           </label>
@@ -64,15 +64,15 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             value={formik.values.email}
             className={`w-full border ${
               formik.errors.email && formik.touched.email
-                ? 'border-red-500'
-                : 'border-gray-300'
+                ? "border-red-500"
+                : "border-gray-300"
             } rounded-md`}
           />
           {formik.errors.email && formik.touched.email && (
             <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
           )}
         </div>
-        <div style={{ width: '50%' }}>
+        <div style={{ width: "50%" }}>
           <div className="mb-2 block">
             <Label htmlFor="contact" value="Contact" />
           </div>
@@ -80,7 +80,7 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             international
             defaultCountry="ID"
             value={formik.values.contact}
-            onChange={(value) => formik.setFieldValue('contact', value)}
+            onChange={(value) => formik.setFieldValue("contact", value)}
             onBlur={formik.handleBlur}
             id="contact"
             name="contact"
@@ -175,8 +175,8 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
         onChange={formik.handleChange}
       >
         <option value="">Select your Role</option>
-        <option value={'customer'}>Customer</option>
-        <option value={'promotor'}>Promotor</option>
+        <option value={"customer"}>Customer</option>
+        <option value={"promotor"}>Promotor</option>
       </Select>
       <Button color="dark" type="submit">
         Submit
