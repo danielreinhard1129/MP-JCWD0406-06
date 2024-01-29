@@ -1,16 +1,14 @@
-
-import { baseUrl } from '@/utils/config';
-import axios, { AxiosError } from 'axios';
-import { Button, Label, Select, TextInput } from 'flowbite-react';
-import { useFormik } from 'formik';
-import { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
-import { toast } from 'sonner';
-import { IForm } from '../../../../types/form.type';
-import { validationSchema } from './validationSchema';
-
+import { baseUrl } from "@/utils/config";
+import axios, { AxiosError } from "axios";
+import { Button, Label, Select, TextInput } from "flowbite-react";
+import { useFormik } from "formik";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { toast } from "sonner";
+import { IForm } from "../../../../types/form.type";
+import { validationSchema } from "./validationSchema";
 
 interface RegisterFormProps {
   onSubmit: (values: IForm) => void;
@@ -24,17 +22,16 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
 
   const [referralCode, setReferralCode] = useState("");
 
-
   const formik = useFormik({
     initialValues: {
-      fullName: '',
-      password: '',
-      email: '',
-      contact: '',
-      address: '',
-      referral_number: '',
-      roleId: '',
-      confirmPassword: '',
+      fullName: "",
+      password: "",
+      email: "",
+      contact: "",
+      address: "",
+      referral_number: "",
+      roleId: "",
+      confirmPassword: "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -44,12 +41,10 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
 
   const handleClaimClick = async () => {
     try {
-
       await axios.post(baseUrl + "/users/claim-refferal", {
         referralCode: formik.values.referral_number,
       });
       toast.success("Success claim referral");
-
       setIsReferralValid(true); // set isReferralValid to true here
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -111,7 +106,7 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
             international
             defaultCountry="ID"
             value={formik.values.contact}
-            onChange={(value) => formik.setFieldValue('contact', value)}
+            onChange={(value) => formik.setFieldValue("contact", value)}
             onBlur={formik.handleBlur}
             id="contact"
             name="contact"
@@ -233,8 +228,8 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
         onChange={formik.handleChange}
       >
         <option value="">Select your Role</option>
-        <option value={'customer'}>Customer</option>
-        <option value={'promotor'}>Promotor</option>
+        <option value={"customer"}>Customer</option>
+        <option value={"promotor"}>Promotor</option>
       </Select>
       <Button color="dark" type="submit">
         Submit
